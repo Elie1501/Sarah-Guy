@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <title>Sarah & Guy - L'Union</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +12,10 @@
     <style>
         /* --- RESET & BASE --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        html { 
+            scroll-behavior: smooth; 
+            height: -webkit-fill-available; /* Correction iOS */
+        }
 
         body {
             font-family: 'Montserrat', sans-serif;
@@ -20,18 +23,36 @@
             background-color: #fcfaf2;
             overflow-x: hidden;
             font-weight: 500;
+            min-height: 100vh;
+            min-height: 100dvh; /* Hauteur dynamique pour mobile */
         }
 
-        /* --- PARALLAXE STICKY --- */
+        /* --- PARALLAXE STICKY OPTIMISÉ --- */
         .parallax-container {
-            position: sticky; top: 0;
+            position: sticky; 
+            top: 0;
             height: 100vh;
-            width: 100%; overflow: hidden; z-index: 1;
-            display: flex; justify-content: center; align-items: center;
+            height: 100dvh; /* Empêche le blanc lors du scroll mobile */
+            width: 100%; 
+            overflow: hidden; 
+            z-index: 1;
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            background-color: #000; /* Fond noir pour éviter le flash blanc */
         }
+
         .parallax-container video, .parallax-container img {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; z-index: 0;
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            object-fit: cover; 
+            z-index: 0;
+            /* Force le rendu matériel */
+            transform: translateZ(0);
+            will-change: transform;
         }
 
         .overlay {
@@ -43,28 +64,33 @@
         .hero-content {
             position: relative; z-index: 2; text-align: center; color: white;
             animation: fadeIn 1.5s ease-out;
+            padding: 0 20px;
         }
         .hero-names {
             font-family: 'Pinyon Script', cursive;
-            font-size: clamp(4rem, 10vw, 6rem);
+            font-size: clamp(3.5rem, 12vw, 6rem);
             color: #d4b996;
             font-weight: 700; margin-bottom: 10px;
         }
         .hero-date {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.5rem; letter-spacing: 8px; font-weight: 700;
+            font-size: 1.2rem; letter-spacing: 6px; font-weight: 700;
             text-transform: uppercase; border-top: 2px solid rgba(255,255,255,0.8);
-            border-bottom: 2px solid rgba(255,255,255,0.8); padding: 10px 20px; display: inline-block;
+            border-bottom: 2px solid rgba(255,255,255,0.8); padding: 10px 15px; display: inline-block;
         }
-        .scroll-arrow { margin-top: 40px; font-size: 2rem; animation: bounce 2s infinite; cursor: pointer; color: white; text-decoration: none; display: inline-block; }
+        .scroll-arrow { margin-top: 30px; font-size: 2rem; animation: bounce 2s infinite; cursor: pointer; color: white; text-decoration: none; display: inline-block; }
 
-        /* --- SECTIONS TEXTE AVEC FOND FLEUR --- */
+        /* --- SECTIONS TEXTE --- */
         .white-section {
-            position: relative; z-index: 10;
-            padding: 100px 20px; text-align: center;
+            position: relative; 
+            z-index: 10;
+            padding: 80px 20px; 
+            text-align: center;
             background-color: #fcfaf2;
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
             overflow: hidden;
+            /* Évite les chevauchements bizarres au scroll */
+            transform: translateZ(0); 
         }
 
         .white-section::before {
@@ -72,59 +98,65 @@
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: url('fleur.jpg');
-            background-size: cover; background-position: center;
-            opacity: 0.12; z-index: -1;
+            background-size: cover; 
+            background-position: center;
+            opacity: 0.12; 
+            z-index: -1;
         }
 
         .wedding-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px; padding: 30px;
-            max-width: 600px; margin: 0 auto;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 12px; 
+            padding: 25px;
+            max-width: 600px; 
+            margin: 0 auto;
             border: 1px solid rgba(0, 0, 0, 0.05);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
             backdrop-filter: blur(5px);
             text-align: left;
         }
 
-        h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; text-transform: uppercase; letter-spacing: 6px; margin-bottom: 20px; color: #333; text-align: center; }
-        .names-script { font-family: 'Pinyon Script', cursive; font-size: 4rem; color: #d4b996; font-weight: 700; margin-bottom: 20px; text-align: center; }
-
-        .houppa-date-block { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; margin-bottom: 40px; line-height: 1.4; text-align: center; }
+        h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 15px; color: #333; text-align: center; }
+        .names-script { font-family: 'Pinyon Script', cursive; font-size: 3.5rem; color: #d4b996; font-weight: 700; margin-bottom: 15px; text-align: center; }
+        .houppa-date-block { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; margin-bottom: 30px; line-height: 1.4; text-align: center; }
         .date-bold { font-weight: 700; display: block; text-transform: uppercase; }
-
-        .venue { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; color: #d4b996; margin-bottom: 5px; text-align: center; }
-        .address { font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: #555; text-align: center; }
+        .venue { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; color: #d4b996; margin-bottom: 5px; text-align: center; }
+        .address { font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: #555; text-align: center; }
 
         .btn-waze {
             display: block; text-decoration: none; font-family: 'Montserrat', sans-serif;
             font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px;
-            color: #d4b996; border: 1px solid #d4b996; padding: 12px 30px;
-            transition: 0.4s; margin: 25px auto 0; font-weight: 700; width: fit-content;
+            color: #d4b996; border: 1px solid #d4b996; padding: 12px 25px;
+            transition: 0.4s; margin: 20px auto 0; font-weight: 700; width: fit-content;
+            border-radius: 4px;
         }
-        .btn-waze:hover { background-color: #d4b996; color: white; }
 
         /* --- RSVP FORM --- */
-        .form-group { margin-bottom: 20px; }
-        label { display: block; font-size: 0.75rem; font-weight: 600; margin-bottom: 8px; color: #555; text-transform: uppercase; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-size: 0.7rem; font-weight: 600; margin-bottom: 5px; color: #555; text-transform: uppercase; }
         .required::after { content: " *"; color: #d4b996; }
-        input, select, textarea { width: 100%; padding: 12px; border: 1px solid #e0e0e0; border-radius: 8px; font-family: inherit; font-size: 0.95rem; }
-        hr { border: 0; border-top: 1px solid #eee; margin: 25px 0; }
-        .btn-action { width: 100%; padding: 18px; background: linear-gradient(45deg, #d4b996, #c4a986); color: white; border: none; border-radius: 50px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; }
+        input, select, textarea { width: 100%; padding: 10px; border: 1px solid #e0e0e0; border-radius: 6px; font-family: inherit; font-size: 0.9rem; -webkit-appearance: none; }
+        hr { border: 0; border-top: 1px solid #eee; margin: 20px 0; }
+        .btn-action { width: 100%; padding: 15px; background: linear-gradient(45deg, #d4b996, #c4a986); color: white; border: none; border-radius: 50px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; }
 
         /* PETALES */
         .petal { position: fixed; background: rgba(212, 185, 150, 0.2); border-radius: 150% 0 150% 0; opacity: 0; pointer-events: none; z-index: 5000; }
         @keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; } 10% { opacity: 0.8; } 100% { transform: translateY(105vh) translateX(var(--x-end)) rotate(var(--r-end)); opacity: 0; } }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} }
 
-        @media (max-width: 768px) { .hero-names { font-size: 3.5rem; } h2 { font-size: 2rem; } .names-script { font-size: 3rem; } }
+        @media (max-width: 768px) {
+            .white-section { padding: 60px 15px; }
+            h2 { font-size: 1.8rem; }
+            .names-script { font-size: 2.8rem; }
+        }
     </style>
 </head>
 <body>
 
 <div class="parallax-container">
-    <video autoplay muted loop playsinline>
+    <video autoplay muted loop playsinline poster="paysage.JPG">
         <source src="tourner.MP4" type="video/mp4">
     </video>
     <div class="overlay"></div>
@@ -159,7 +191,7 @@
     <div class="names-script">Sarah & Guy</div>
     <div class="houppa-date-block">
         <span class="date-bold">Mercredi 24 Juin 2026</span>
-        <span style="font-size: 1.2rem; font-style: italic; color: #888;">9 Sivan 5786</span><br>
+        <span style="font-size: 1.1rem; font-style: italic; color: #888;">9 Sivan 5786</span><br>
         <span>à 17h30 précises</span>
     </div>
     <div class="info-block">
@@ -176,8 +208,8 @@
 
 <section class="white-section">
     <div class="wedding-card">
-        <h2 style="margin-bottom: 10px;">Confirmation</h2>
-        <p style="text-align: center; font-style: italic; margin-bottom: 30px; color: #666;">Réponse souhaitée avant le 1er Juin</p>
+        <h2 style="margin-bottom: 5px; font-size: 1.8rem;">Confirmation</h2>
+        <p style="text-align: center; font-style: italic; margin-bottom: 25px; color: #666; font-size: 0.9rem;">Réponse souhaitée avant le 1er Juin</p>
 
         <form id="rsvpForm" class="rsvp-form">
             <div class="form-group">
@@ -193,8 +225,8 @@
                     <option value="non">NON, avec regret</option>
                 </select>
             </div>
-            <div id="sec_m" style="display:none; margin-bottom: 20px;">
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">
+            <div id="sec_m" style="display:none; margin-bottom: 15px;">
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
                     <div><label>Adultes</label><input type="number" name="ad_m" min="0" value="0"></div>
                     <div><label>Enfants</label><input type="number" name="en_m" min="0" value="0"></div>
                 </div>
@@ -208,8 +240,8 @@
                     <option value="non">NON, avec regret</option>
                 </select>
             </div>
-            <div id="sec_h" style="display:none; margin-bottom: 20px;">
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">
+            <div id="sec_h" style="display:none; margin-bottom: 15px;">
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
                     <div><label>Adultes</label><input type="number" name="ad_h" min="0" value="0"></div>
                     <div><label>Enfants</label><input type="number" name="en_h" min="0" value="0"></div>
                 </div>
@@ -217,16 +249,16 @@
             <hr>
             <div class="form-group">
                 <label>Un mot pour les mariés ?</label>
-                <textarea name="msg" rows="3" placeholder="Votre message..."></textarea>
+                <textarea name="msg" rows="2" placeholder="Votre message..."></textarea>
             </div>
             <button type="submit" id="subBtn" class="btn-action">Envoyer ma réponse</button>
         </form>
     </div>
 </section>
 
-<footer style="text-align:center; padding:60px 20px; background:#fcfaf2;">
-    <p class="cormorant" style="font-size:1.8rem; color:#d4b996; font-style:italic;">Hâte de célébrer avec vous</p>
-    <p style="font-size: 0.7rem; color: #aaa; margin-top: 10px; letter-spacing: 2px;">S & G — 2026</p>
+<footer style="text-align:center; padding:40px 20px; background:#fcfaf2; position: relative; z-index: 10;">
+    <p class="cormorant" style="font-size:1.5rem; color:#d4b996; font-style:italic;">Hâte de célébrer avec vous</p>
+    <p style="font-size: 0.6rem; color: #aaa; margin-top: 10px; letter-spacing: 2px;">S & G — 2026</p>
 </footer>
 
 <script>
@@ -236,24 +268,24 @@
     function createPetal() {
         const petal = document.createElement('div');
         petal.classList.add('petal');
-        const size = Math.random() * 10 + 10;
-        petal.style.width = `${size}px`;
-        petal.style.height = `${size * 1.2}px`;
-        petal.style.left = `${Math.random() * window.innerWidth}px`;
-        petal.style.top = `-20px`;
-        petal.style.setProperty('--x-end', `${(Math.random() - 0.5) * 300}px`);
-        petal.style.setProperty('--r-end', `${Math.random() * 360}deg`);
-        petal.style.animation = `fall ${Math.random() * 5 + 7}s linear forwards`;
+        const size = Math.random() * 8 + 8;
+        petal.style.width = size + 'px';
+        petal.style.height = (size * 1.2) + 'px';
+        petal.style.left = Math.random() * window.innerWidth + 'px';
+        petal.style.top = '-20px';
+        petal.style.setProperty('--x-end', (Math.random() - 0.5) * 200 + 'px');
+        petal.style.setProperty('--r-end', Math.random() * 360 + 'deg');
+        petal.style.animation = `fall ${Math.random() * 4 + 6}s linear forwards`;
         document.body.appendChild(petal);
         setTimeout(() => petal.remove(), 10000);
     }
-    setInterval(createPetal, 600);
+    setInterval(createPetal, 800);
 
     document.getElementById('rsvpForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const b = document.getElementById('subBtn');
         b.innerText = "Envoi...";
-        setTimeout(() => { b.innerText = "Envoyé ! ✨"; b.style.background = "#8eb695"; alert("Merci ! Votre réponse est enregistrée."); }, 1500);
+        setTimeout(() => { b.innerText = "Envoyé ! ✨"; b.style.background = "#8eb695"; alert("Merci ! Votre réponse est enregistrée."); }, 1200);
     });
 </script>
 </body>
