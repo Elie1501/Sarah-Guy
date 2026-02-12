@@ -12,10 +12,10 @@
     <style>
         /* --- RESET & BASE --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { 
-            scroll-behavior: smooth; 
-            height: -webkit-fill-available; 
-            background-color: #000; /* Empêche les flashs blancs */
+        html {
+            scroll-behavior: smooth;
+            height: -webkit-fill-available;
+            background-color: #000;
         }
 
         body {
@@ -29,23 +29,23 @@
 
         .calisto { font-family: 'Calisto MT', 'Bookman Old Style', Garamond, serif; }
 
-        /* --- PARALLAXE FLUIDE SANS CARRÉ BLANC --- */
+        /* --- PARALLAXE FLUIDE --- */
         .parallax-container {
-            position: sticky; 
-            top: 0; 
-            height: 100dvh; 
-            width: 100%; 
-            overflow: hidden; 
+            position: sticky;
+            top: 0;
+            height: 100dvh;
+            width: 100%;
+            overflow: hidden;
             z-index: 1;
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
             background-color: #000;
         }
         .parallax-container video, .parallax-container img {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; z-index: 0; 
-            transform: translate3d(0,0,0); 
+            object-fit: cover; z-index: 0;
+            transform: translate3d(0,0,0);
             will-change: transform;
         }
         .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); z-index: 1; }
@@ -67,13 +67,13 @@
 
         /* --- SECTIONS TEXTE --- */
         .white-section {
-            position: relative; 
-            z-index: 10; 
-            padding: 80px 20px; 
+            position: relative;
+            z-index: 10;
+            padding: 80px 20px;
             text-align: center;
-            background-color: #fcfaf2; 
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.15); 
-            overflow: hidden; 
+            background-color: #fcfaf2;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.15);
+            overflow: hidden;
             transform: translateZ(0);
         }
         .white-section::before {
@@ -105,10 +105,15 @@
             transition: 0.4s; margin: 20px auto 0; font-weight: 700; width: fit-content; border-radius: 4px;
         }
 
-        /* FILTRE DORÉ POUR L'IMAGE HÉBREU */
         .gold-filter {
             filter: sepia(100%) saturate(300%) brightness(85%) hue-rotate(10deg);
-            width: 100%; max-width: 500px; margin: 0 auto 50px; display: block;
+            width: 100%; max-width: 500px; margin: 0 auto 20px; display: block;
+        }
+
+        /* Bloc familles colonnes */
+        .family-grid {
+            display: flex; justify-content: space-between; text-align: center;
+            margin-bottom: 30px; font-size: 0.85rem; gap: 10px; line-height: 1.6;
         }
 
         /* --- FORM --- */
@@ -118,6 +123,19 @@
         input, select, textarea { width: 100%; padding: 10px; border: 1px solid #e0e0e0; border-radius: 6px; font-family: inherit; font-size: 0.9rem; -webkit-appearance: none; }
         hr { border: 0; border-top: 1px solid #eee; margin: 25px 0; }
         .btn-action { width: 100%; padding: 15px; background: linear-gradient(45deg, #d4b996, #c4a986); color: white; border: none; border-radius: 50px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; }
+
+        /* --- PÉTALES ROSES --- */
+        .petal {
+            position: fixed;
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.8) 0%, rgba(255, 105, 180, 0.5) 100%);
+            border-radius: 150% 0 150% 0; opacity: 0; pointer-events: none; z-index: 5000;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            100% { transform: translateY(105vh) translateX(var(--x-end)) rotate(var(--r-end)); opacity: 0; }
+        }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} }
@@ -147,7 +165,7 @@
     <h2>Cérémonie Civile</h2>
     <div class="names-script">Sarah & Guy</div>
     <span class="sub-text">Se diront « oui »</span>
-    
+
     <div class="houppa-date-block calisto">
         <span class="date-line">Mercredi 17 Juin 2026</span><br>
         <span>à 14h00 précise</span>
@@ -167,20 +185,44 @@
 
 <section class="white-section">
     <img src="hebreu.png" alt="Bénédiction" class="gold-filter">
-    <h2>Houppa & Soirée</h2>
-    <div class="names-script">Sarah & Guy</div>
-    
+
+    <div class="family-grid">
+        <div style="flex: 1;">
+            <p>Myriam Zarka, Gladys Zarka</p>
+            <p>Mr & Mme Philippe Zarka</p>
+        </div>
+        <div style="flex: 1;">
+            <p>F Ogé, J-P Kannengiesser</p>
+            <p>Mr & Mme Pascal Fitoussi</p>
+        </div>
+    </div>
+
+    <p style="margin-bottom: 30px; font-style: italic; font-size: 0.95rem;">Ont l’immense joie de vous faire part du mariage de leurs enfants et petits-enfants</p>
+
+    <div class="names-script" style="margin-bottom: 5px;">Sarah & Guy Avi</div>
+    <div style="font-size: 1.8rem; margin-bottom: 25px; font-weight: 700;">שרה & גי אבי</div>
+
     <div class="houppa-date-block calisto">
-        <span class="date-line">Mercredi 24 Juin 2026</span><br>
-        <span style="font-size: 1.1rem; font-style: italic; color: #888; display: block; margin: 5px 0;">9 Sivan 5786</span>
-        <span>à 17h30 précises</span>
+        <span class="date-line">Le mercredi 24 juin 2026</span><br>
+        <span style="font-size: 1.1rem; font-style: italic; color: #888; display: block; margin: 5px 0;">9 Tamouz 5786</span>
+        <span>À 17h00</span>
     </div>
 
     <div class="info-block">
-        <div class="venue">Domaine de la Muette</div>
+        <div class="venue">Le Domaine de la Muette</div>
         <div class="address">RD35 route de Beauvais, 60240 Montchevreuil</div>
+        <p style="margin-top: 15px; font-style: italic; font-size: 0.85rem; color: #d4b996; padding: 0 10px;">
+            Réception en pleine nature, au bord d’un lac (non adapté aux enfants).
+        </p>
     </div>
+
     <a href="https://waze.com/ul?q=Domaine+de+la+Muette+RD35+route+de+Beauvais+60240+Montchevreuil" target="_blank" class="btn-waze">Itinéraire Waze</a>
+
+    <div style="margin-top: 50px; padding: 20px; border-top: 1px dashed #d4b996; font-size: 0.8rem; color: #666; line-height: 1.6;">
+        <p style="font-style: italic; margin-bottom: 10px;">Une tendre pensée pour nos grands parents qui nous accompagnent du Gan Eden.</p>
+        <p style="font-weight: 600; color: #333; margin-bottom: 5px;">Guy Zarka, Alfred Zarka, Simon et Myriam Fitoussi.</p>
+        <p style="font-style: italic;">Que leur souvenir illumine nos vies.</p>
+    </div>
 </section>
 
 <div class="parallax-container">
@@ -208,10 +250,7 @@
                 </select>
             </div>
             <div id="sec_m" style="display:none; margin-bottom: 15px;">
-                <div class="form-group">
-                    <label>Nombre d'adultes</label>
-                    <input type="number" name="ad_m" min="1" value="1">
-                </div>
+                <div class="form-group"><label>Nombre d'adultes</label><input type="number" name="ad_m" min="1" value="1"></div>
             </div>
             <hr>
             <div class="form-group">
@@ -223,16 +262,10 @@
                 </select>
             </div>
             <div id="sec_h" style="display:none; margin-bottom: 15px;">
-                <div class="form-group">
-                    <label>Nombre d'adultes</label>
-                    <input type="number" name="ad_h" min="1" value="1">
-                </div>
+                <div class="form-group"><label>Nombre d'adultes</label><input type="number" name="ad_h" min="1" value="1"></div>
             </div>
             <hr>
-            <div class="form-group">
-                <label>Un mot pour les mariés ?</label>
-                <textarea name="msg" rows="2" placeholder="Votre message..."></textarea>
-            </div>
+            <div class="form-group"><label>Un mot pour les mariés ?</label><textarea name="msg" rows="2" placeholder="Votre message..."></textarea></div>
             <button type="submit" id="subBtn" class="btn-action">Envoyer ma réponse</button>
         </form>
     </div>
@@ -253,9 +286,7 @@
 
     function startMusic() {
         if (!hasPlayed) {
-            audio.play().then(() => {
-                hasPlayed = true; musicBtn.innerText = "⏸";
-            }).catch(() => {});
+            audio.play().then(() => { hasPlayed = true; musicBtn.innerText = "⏸"; }).catch(() => {});
         }
     }
     ['scroll', 'click', 'touchstart'].forEach(evt => window.addEventListener(evt, startMusic, {once: true}));
@@ -265,6 +296,22 @@
         if (audio.paused) { audio.play(); musicBtn.innerText = "⏸"; }
         else { audio.pause(); musicBtn.innerText = "🎶"; }
     });
+
+    function createPetal() {
+        const petal = document.createElement('div');
+        petal.classList.add('petal');
+        const size = Math.random() * 12 + 10;
+        petal.style.width = size + 'px';
+        petal.style.height = (size * 1.3) + 'px';
+        petal.style.left = Math.random() * window.innerWidth + 'px';
+        petal.style.top = '-20px';
+        petal.style.setProperty('--x-end', (Math.random() - 0.5) * 300 + 'px');
+        petal.style.setProperty('--r-end', Math.random() * 720 + 'deg');
+        petal.style.animation = `fall ${Math.random() * 5 + 6}s linear forwards`;
+        document.body.appendChild(petal);
+        setTimeout(() => petal.remove(), 10000);
+    }
+    setInterval(createPetal, 700);
 
     document.getElementById('rsvpForm').addEventListener('submit', function(e) {
         e.preventDefault();
