@@ -12,7 +12,11 @@
     <style>
         /* --- RESET & BASE --- */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; height: -webkit-fill-available; }
+        html { 
+            scroll-behavior: smooth; 
+            height: -webkit-fill-available; 
+            background-color: #000; /* Empêche les flashs blancs */
+        }
 
         body {
             font-family: 'Montserrat', sans-serif;
@@ -25,17 +29,28 @@
 
         .calisto { font-family: 'Calisto MT', 'Bookman Old Style', Garamond, serif; }
 
-        /* --- PARALLAXE --- */
+        /* --- PARALLAXE FLUIDE SANS CARRÉ BLANC --- */
         .parallax-container {
-            position: sticky; top: 0; height: 100dvh; width: 100%; overflow: hidden; z-index: 1;
-            display: flex; justify-content: center; align-items: center; background-color: #000;
+            position: sticky; 
+            top: 0; 
+            height: 100dvh; 
+            width: 100%; 
+            overflow: hidden; 
+            z-index: 1;
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            background-color: #000;
         }
         .parallax-container video, .parallax-container img {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; z-index: 0; transform: translateZ(0); will-change: transform;
+            object-fit: cover; z-index: 0; 
+            transform: translate3d(0,0,0); 
+            will-change: transform;
         }
         .overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); z-index: 1; }
 
+        /* --- BOUTON MUSIQUE FIXE --- */
         #musicToggle {
             position: fixed; bottom: 25px; right: 25px; z-index: 9999;
             width: 50px; height: 50px; background: white; border: none;
@@ -44,14 +59,22 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
+        /* --- HERO --- */
         .hero-content { position: relative; z-index: 2; text-align: center; color: white; animation: fadeIn 1.5s ease-out; padding: 0 20px; }
         .hero-names { font-family: 'Pinyon Script', cursive; font-size: clamp(3.5rem, 12vw, 6rem); color: #d4b996; font-weight: 700; margin-bottom: 10px; }
         .hero-date { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; letter-spacing: 6px; font-weight: 700; text-transform: uppercase; border-top: 2px solid rgba(255,255,255,0.8); border-bottom: 2px solid rgba(255,255,255,0.8); padding: 10px 15px; display: inline-block; }
         .scroll-arrow { margin-top: 30px; font-size: 2rem; animation: bounce 2s infinite; cursor: pointer; color: white; text-decoration: none; display: inline-block; }
 
+        /* --- SECTIONS TEXTE --- */
         .white-section {
-            position: relative; z-index: 10; padding: 80px 20px; text-align: center;
-            background-color: #fcfaf2; box-shadow: 0 -5px 20px rgba(0,0,0,0.1); overflow: hidden; transform: translateZ(0);
+            position: relative; 
+            z-index: 10; 
+            padding: 80px 20px; 
+            text-align: center;
+            background-color: #fcfaf2; 
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.15); 
+            overflow: hidden; 
+            transform: translateZ(0);
         }
         .white-section::before {
             content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -81,8 +104,14 @@
             color: #d4b996; border: 1px solid #d4b996; padding: 12px 25px;
             transition: 0.4s; margin: 20px auto 0; font-weight: 700; width: fit-content; border-radius: 4px;
         }
-        .btn-waze:hover { background-color: #d4b996; color: white; }
 
+        /* FILTRE DORÉ POUR L'IMAGE HÉBREU */
+        .gold-filter {
+            filter: sepia(100%) saturate(300%) brightness(85%) hue-rotate(10deg);
+            width: 100%; max-width: 500px; margin: 0 auto 50px; display: block;
+        }
+
+        /* --- FORM --- */
         .form-group { margin-bottom: 15px; }
         label { display: block; font-size: 0.7rem; font-weight: 600; margin-bottom: 5px; color: #555; text-transform: uppercase; }
         .required::after { content: " *"; color: #d4b996; }
@@ -90,8 +119,6 @@
         hr { border: 0; border-top: 1px solid #eee; margin: 25px 0; }
         .btn-action { width: 100%; padding: 15px; background: linear-gradient(45deg, #d4b996, #c4a986); color: white; border: none; border-radius: 50px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; }
 
-        .petal { position: fixed; background: rgba(212, 185, 150, 0.2); border-radius: 150% 0 150% 0; opacity: 0; pointer-events: none; z-index: 5000; }
-        @keyframes fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; } 10% { opacity: 0.8; } 100% { transform: translateY(105vh) translateX(var(--x-end)) rotate(var(--r-end)); opacity: 0; } }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-10px);} }
 
@@ -120,7 +147,7 @@
     <h2>Cérémonie Civile</h2>
     <div class="names-script">Sarah & Guy</div>
     <span class="sub-text">Se diront « oui »</span>
-
+    
     <div class="houppa-date-block calisto">
         <span class="date-line">Mercredi 17 Juin 2026</span><br>
         <span>à 14h00 précise</span>
@@ -139,11 +166,10 @@
 </div>
 
 <section class="white-section">
-    <img src="hebreu.png" alt="Bénédiction" style="width: 100%; max-width: 500px; margin: 0 auto 50px; display: block;">
-
+    <img src="hebreu.png" alt="Bénédiction" class="gold-filter">
     <h2>Houppa & Soirée</h2>
     <div class="names-script">Sarah & Guy</div>
-
+    
     <div class="houppa-date-block calisto">
         <span class="date-line">Mercredi 24 Juin 2026</span><br>
         <span style="font-size: 1.1rem; font-style: italic; color: #888; display: block; margin: 5px 0;">9 Sivan 5786</span>
@@ -239,22 +265,6 @@
         if (audio.paused) { audio.play(); musicBtn.innerText = "⏸"; }
         else { audio.pause(); musicBtn.innerText = "🎶"; }
     });
-
-    function createPetal() {
-        const petal = document.createElement('div');
-        petal.classList.add('petal');
-        const size = Math.random() * 8 + 8;
-        petal.style.width = size + 'px';
-        petal.style.height = (size * 1.2) + 'px';
-        petal.style.left = Math.random() * window.innerWidth + 'px';
-        petal.style.top = '-20px';
-        petal.style.setProperty('--x-end', (Math.random() - 0.5) * 200 + 'px');
-        petal.style.setProperty('--r-end', Math.random() * 360 + 'deg');
-        petal.style.animation = `fall ${Math.random() * 4 + 6}s linear forwards`;
-        document.body.appendChild(petal);
-        setTimeout(() => petal.remove(), 10000);
-    }
-    setInterval(createPetal, 800);
 
     document.getElementById('rsvpForm').addEventListener('submit', function(e) {
         e.preventDefault();
