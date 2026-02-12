@@ -28,18 +28,10 @@
             height: 100vh;
             width: 100%; overflow: hidden; z-index: 1;
             display: flex; justify-content: center; align-items: center;
-            background-color: #fcfaf2;
         }
         .parallax-container video, .parallax-container img {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             object-fit: cover; z-index: 0;
-        }
-
-        /* Taille réduite pour la bague */
-        .parallax-container img.bague-zoom-fix {
-            object-fit: contain;
-            width: 70%; height: 70%;
-            left: 15%; top: 15%;
         }
 
         .overlay {
@@ -91,28 +83,27 @@
             border: 1px solid rgba(0, 0, 0, 0.05);
             box-shadow: 0 10px 25px rgba(0,0,0,0.05);
             backdrop-filter: blur(5px);
+            text-align: left;
         }
 
-        h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; text-transform: uppercase; letter-spacing: 6px; margin-bottom: 20px; color: #333; }
-        .names-script { font-family: 'Pinyon Script', cursive; font-size: 4rem; color: #d4b996; font-weight: 700; margin-bottom: 20px; }
+        h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; text-transform: uppercase; letter-spacing: 6px; margin-bottom: 20px; color: #333; text-align: center; }
+        .names-script { font-family: 'Pinyon Script', cursive; font-size: 4rem; color: #d4b996; font-weight: 700; margin-bottom: 20px; text-align: center; }
 
-        .houppa-date-block { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; margin-bottom: 40px; line-height: 1.4; }
+        .houppa-date-block { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; margin-bottom: 40px; line-height: 1.4; text-align: center; }
         .date-bold { font-weight: 700; display: block; text-transform: uppercase; }
 
-        .venue { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; color: #d4b996; margin-bottom: 5px; }
-        .address { font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: #555; }
+        .venue { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 700; color: #d4b996; margin-bottom: 5px; text-align: center; }
+        .address { font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: #555; text-align: center; }
 
-        /* BOUTON WAZE */
         .btn-waze {
-            display: inline-block; text-decoration: none; font-family: 'Montserrat', sans-serif;
+            display: block; text-decoration: none; font-family: 'Montserrat', sans-serif;
             font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px;
             color: #d4b996; border: 1px solid #d4b996; padding: 12px 30px;
-            transition: 0.4s; margin-top: 25px; font-weight: 700;
+            transition: 0.4s; margin: 25px auto 0; font-weight: 700; width: fit-content;
         }
         .btn-waze:hover { background-color: #d4b996; color: white; }
 
         /* --- RSVP FORM --- */
-        .rsvp-form { text-align: left; margin-top: 20px; }
         .form-group { margin-bottom: 20px; }
         label { display: block; font-size: 0.75rem; font-weight: 600; margin-bottom: 8px; color: #555; text-transform: uppercase; }
         .required::after { content: " *"; color: #d4b996; }
@@ -159,8 +150,8 @@
 </section>
 
 <div class="parallax-container">
-    <img src="bague.JPG" alt="Nos Alliances" class="bague-zoom-fix">
-    <div class="overlay" style="background: rgba(0,0,0,0.1);"></div>
+    <img src="bague.JPG" alt="Nos Alliances">
+    <div class="overlay"></div>
 </div>
 
 <section class="white-section">
@@ -185,7 +176,9 @@
 
 <section class="white-section">
     <div class="wedding-card">
-        <h2>Confirmation</h2>
+        <h2 style="margin-bottom: 10px;">Confirmation</h2>
+        <p style="text-align: center; font-style: italic; margin-bottom: 30px; color: #666;">Réponse souhaitée avant le 1er Juin</p>
+
         <form id="rsvpForm" class="rsvp-form">
             <div class="form-group">
                 <label class="required">Nom & Prénom</label>
@@ -193,7 +186,7 @@
             </div>
             <hr>
             <div class="form-group">
-                <label class="required">Présence à la Mairie ?</label>
+                <label class="required">Présence à la Mairie ? (17 juin)</label>
                 <select name="pres_m" id="pres_m" onchange="toggleM()" required>
                     <option value="" disabled selected>Choisissez</option>
                     <option value="oui">OUI, avec plaisir</option>
@@ -208,7 +201,7 @@
             </div>
             <hr>
             <div class="form-group">
-                <label class="required">Présence à la Houppa ?</label>
+                <label class="required">Présence à la Houppa ? (24 juin)</label>
                 <select name="pres_h" id="pres_h" onchange="toggleH()" required>
                     <option value="" disabled selected>Choisissez</option>
                     <option value="oui">OUI, avec plaisir</option>
@@ -233,6 +226,7 @@
 
 <footer style="text-align:center; padding:60px 20px; background:#fcfaf2;">
     <p class="cormorant" style="font-size:1.8rem; color:#d4b996; font-style:italic;">Hâte de célébrer avec vous</p>
+    <p style="font-size: 0.7rem; color: #aaa; margin-top: 10px; letter-spacing: 2px;">S & G — 2026</p>
 </footer>
 
 <script>
@@ -259,7 +253,7 @@
         e.preventDefault();
         const b = document.getElementById('subBtn');
         b.innerText = "Envoi...";
-        setTimeout(() => { b.innerText = "Envoyé ! ✨"; b.style.background = "#8eb695"; alert("Merci ! Votre réponse est bien enregistrée."); }, 1500);
+        setTimeout(() => { b.innerText = "Envoyé ! ✨"; b.style.background = "#8eb695"; alert("Merci ! Votre réponse est enregistrée."); }, 1500);
     });
 </script>
 </body>
