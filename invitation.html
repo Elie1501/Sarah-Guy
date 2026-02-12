@@ -69,10 +69,11 @@
             box-shadow: 0 5px 20px rgba(0,0,0,0.05); backdrop-filter: blur(5px); text-align: left;
         }
 
-        h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 15px; color: #333; text-align: center; }
-        .names-script { font-family: 'Pinyon Script', cursive; font-size: 3.5rem; color: #d4b996; font-weight: 700; margin-bottom: 15px; text-align: center; }
+        h2 { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 10px; color: #333; text-align: center; }
+        .names-script { font-family: 'Pinyon Script', cursive; font-size: 3.5rem; color: #d4b996; font-weight: 700; margin-bottom: 5px; text-align: center; }
+        .sub-text { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-style: italic; color: #666; margin-bottom: 20px; text-align: center; display: block; }
 
-        .houppa-date-block { font-size: 1.5rem; margin-bottom: 30px; line-height: 1.4; text-align: center; }
+        .houppa-date-block { font-size: 1.4rem; margin-bottom: 30px; line-height: 1.4; text-align: center; }
         .date-line { font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
 
         .venue { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 700; color: #d4b996; margin-bottom: 5px; text-align: center; }
@@ -121,14 +122,18 @@
 </div>
 
 <section id="mairie" class="white-section">
+    <div style="font-size: 1.5rem; margin-bottom: 10px;">💍</div>
     <h2>Cérémonie Civile</h2>
     <div class="names-script">Sarah & Guy</div>
+    <span class="sub-text">Se diront « oui »</span>
+
     <div class="houppa-date-block calisto">
         <span class="date-line">Mercredi 17 Juin 2026</span><br>
-        <span>à 14h00</span>
+        <span>à 14h00 précise</span>
     </div>
+
     <div class="info-block">
-        <div class="venue">Mairie de Sarcelles</div>
+        <div class="venue">Mairie de Sarcelles Village</div>
         <div class="address">3 rue de la résistance, 95200 Sarcelles</div>
     </div>
     <a href="https://waze.com/ul?q=Mairie+de+Sarcelles+3+rue+de+la+resistance+95200+Sarcelles" target="_blank" class="btn-waze">Itinéraire Waze</a>
@@ -179,9 +184,9 @@
                 </select>
             </div>
             <div id="sec_m" style="display:none; margin-bottom: 15px;">
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-                    <div><label>Adultes</label><input type="number" name="ad_m" min="0" value="0"></div>
-                    <div><label>Enfants</label><input type="number" name="en_m" min="0" value="0"></div>
+                <div class="form-group">
+                    <label>Nombre d'adultes</label>
+                    <input type="number" name="ad_m" min="1" value="1">
                 </div>
             </div>
             <hr>
@@ -194,9 +199,9 @@
                 </select>
             </div>
             <div id="sec_h" style="display:none; margin-bottom: 15px;">
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-                    <div><label>Adultes</label><input type="number" name="ad_h" min="0" value="0"></div>
-                    <div><label>Enfants</label><input type="number" name="en_h" min="0" value="0"></div>
+                <div class="form-group">
+                    <label>Nombre d'adultes</label>
+                    <input type="number" name="ad_h" min="1" value="1">
                 </div>
             </div>
             <hr>
@@ -218,7 +223,6 @@
     function toggleM() { document.getElementById('sec_m').style.display = (document.getElementById('pres_m').value === 'oui') ? 'block' : 'none'; }
     function toggleH() { document.getElementById('sec_h').style.display = (document.getElementById('pres_h').value === 'oui') ? 'block' : 'none'; }
 
-    // Gestion Musique
     const audio = document.getElementById('mazalMusic');
     const musicBtn = document.getElementById('musicToggle');
     let hasPlayed = false;
@@ -238,7 +242,6 @@
         else { audio.pause(); musicBtn.innerText = "🎶"; }
     });
 
-    // Pétales
     function createPetal() {
         const petal = document.createElement('div');
         petal.classList.add('petal');
