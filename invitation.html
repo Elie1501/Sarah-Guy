@@ -59,8 +59,16 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        /* --- HERO --- */
-        .hero-content { position: relative; z-index: 2; text-align: center; color: white; animation: fadeIn 1.5s ease-out; padding: 0 20px; }
+        /* --- HERO (Ajusté pour être plus haut) --- */
+        .hero-content { 
+            position: relative; 
+            z-index: 2; 
+            text-align: center; 
+            color: white; 
+            animation: fadeIn 1.5s ease-out; 
+            padding: 0 20px;
+            margin-top: -15vh; /* Remonte le bloc vers le haut */
+        }
         .hero-names { font-family: 'Pinyon Script', cursive; font-size: clamp(3.5rem, 12vw, 6rem); color: #d4b996; font-weight: 700; margin-bottom: 10px; }
         .hero-date { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; letter-spacing: 6px; font-weight: 700; text-transform: uppercase; border-top: 2px solid rgba(255,255,255,0.8); border-bottom: 2px solid rgba(255,255,255,0.8); padding: 10px 15px; display: inline-block; }
         .scroll-arrow { margin-top: 30px; font-size: 2rem; animation: bounce 2s infinite; cursor: pointer; color: white; text-decoration: none; display: inline-block; }
@@ -148,7 +156,7 @@
 <audio id="mazalMusic" src="mazal.mp3" preload="auto" loop></audio>
 
 <div class="parallax-container">
-    <img src="barque.jpg" alt="Sarah & Guy">
+    <img src="barque.JPG" alt="Sarah & Guy">
     <div class="overlay"></div>
     <div class="hero-content">
         <div class="hero-names">Sarah & Guy</div>
@@ -319,4 +327,3 @@
 </script>
 </body>
 </html>
-
