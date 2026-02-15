@@ -15,7 +15,7 @@
         html {
             scroll-behavior: smooth;
             height: -webkit-fill-available;
-            background-color: #000;
+            background-color: #fcfaf2; /* Harmonisation pour éviter le flash blanc */
         }
 
         body {
@@ -39,7 +39,6 @@
             z-index: 1;
             display: flex;
             justify-content: center;
-            /* Changement ici pour permettre le placement manuel du contenu */
             align-items: flex-start; 
             background-color: #000;
         }
@@ -60,7 +59,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        /* --- HERO (Placé précisément au 1/3 de l'écran) --- */
+        /* --- HERO (Très haut + Flèche en ligne) --- */
         .hero-content { 
             position: absolute; 
             z-index: 2; 
@@ -69,11 +68,36 @@
             animation: fadeIn 1.5s ease-out; 
             padding: 0 20px;
             width: 100%;
-            top: 28%; /* Place le haut du texte vers le 1/3 pour que la fin du bloc arrive pile à 33% */
+            top: 15%; /* Position ultra haute */
         }
         .hero-names { font-family: 'Pinyon Script', cursive; font-size: clamp(3.5rem, 12vw, 6rem); color: #d4b996; font-weight: 700; margin-bottom: 5px; }
-        .hero-date { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; letter-spacing: 6px; font-weight: 700; text-transform: uppercase; border-top: 2px solid rgba(255,255,255,0.8); border-bottom: 2px solid rgba(255,255,255,0.8); padding: 8px 15px; display: inline-block; }
-        .scroll-arrow { margin-top: 20px; font-size: 2rem; animation: bounce 2s infinite; cursor: pointer; color: white; text-decoration: none; display: inline-block; }
+        
+        .hero-date-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .hero-date { 
+            font-family: 'Cormorant Garamond', serif; 
+            font-size: 1.1rem; 
+            letter-spacing: 4px; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            border-top: 2px solid rgba(255,255,255,0.8); 
+            border-bottom: 2px solid rgba(255,255,255,0.8); 
+            padding: 8px 15px; 
+        }
+
+        .scroll-arrow { 
+            font-size: 1.8rem; 
+            animation: bounce 2s infinite; 
+            cursor: pointer; 
+            color: #d4b996; 
+            text-decoration: none; 
+            display: inline-block;
+        }
 
         /* --- SECTIONS TEXTE --- */
         .white-section {
@@ -82,9 +106,9 @@
             padding: 80px 20px;
             text-align: center;
             background-color: #fcfaf2;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.15);
+            box-shadow: 0 -15px 35px rgba(0,0,0,0.2); /* Ombre accentuée pour couvrir le vide */
             overflow: hidden;
-            transform: translateZ(0);
+            margin-top: -1px; /* Évite les lignes blanches de 1px entre sections */
         }
         .white-section::before {
             content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -162,9 +186,10 @@
     <div class="overlay"></div>
     <div class="hero-content">
         <div class="hero-names">Sarah & Guy</div>
-        <div class="hero-date">24 . 06 . 2026</div>
-        <br>
-        <a href="#mairie" class="scroll-arrow">↓</a>
+        <div class="hero-date-row">
+            <div class="hero-date">24 . 06 . 2026</div>
+            <a href="#mairie" class="scroll-arrow">↓</a>
+        </div>
     </div>
 </div>
 
