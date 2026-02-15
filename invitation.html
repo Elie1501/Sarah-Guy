@@ -15,8 +15,8 @@
         html {
             scroll-behavior: smooth;
             height: -webkit-fill-available;
-            background-color: #fcfaf2; 
-            overscroll-behavior: none; /* Empêche le rebond blanc */
+            background-color: #fcfaf2;
+            overscroll-behavior: none;
         }
 
         body {
@@ -41,7 +41,7 @@
             z-index: 1;
             display: flex;
             justify-content: center;
-            align-items: flex-start; 
+            align-items: flex-start;
             background-color: #fcfaf2;
         }
         .parallax-container img {
@@ -61,19 +61,19 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        /* --- HERO (Ajusté à 22%) --- */
-        .hero-content { 
-            position: absolute; 
-            z-index: 2; 
-            text-align: center; 
-            color: white; 
-            animation: fadeIn 1.5s ease-out; 
+        /* --- HERO --- */
+        .hero-content {
+            position: absolute;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            animation: fadeIn 1.5s ease-out;
             padding: 0 20px;
             width: 100%;
-            top: 22%; /* Légèrement descendu pour l'équilibre */
+            top: 22%;
         }
         .hero-names { font-family: 'Pinyon Script', cursive; font-size: clamp(3.5rem, 12vw, 6rem); color: #d4b996; font-weight: 700; margin-bottom: 5px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
-        
+
         .hero-date-row {
             display: flex;
             align-items: center;
@@ -81,23 +81,23 @@
             gap: 15px;
         }
 
-        .hero-date { 
-            font-family: 'Cormorant Garamond', serif; 
-            font-size: 1.1rem; 
-            letter-spacing: 4px; 
-            font-weight: 700; 
-            text-transform: uppercase; 
-            border-top: 2px solid rgba(255,255,255,0.8); 
-            border-bottom: 2px solid rgba(255,255,255,0.8); 
-            padding: 8px 15px; 
+        .hero-date {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            letter-spacing: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-top: 2px solid rgba(255,255,255,0.8);
+            border-bottom: 2px solid rgba(255,255,255,0.8);
+            padding: 8px 15px;
         }
 
-        .scroll-arrow { 
-            font-size: 1.8rem; 
-            animation: bounce 2s infinite; 
-            cursor: pointer; 
-            color: #d4b996; 
-            text-decoration: none; 
+        .scroll-arrow {
+            font-size: 1.8rem;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            color: #d4b996;
+            text-decoration: none;
             display: inline-block;
         }
 
@@ -110,7 +110,7 @@
             background-color: #fcfaf2;
             box-shadow: 0 -20px 40px rgba(0,0,0,0.2);
             overflow: hidden;
-            margin-top: -2px; /* Chevauchement pour supprimer la ligne blanche */
+            margin-top: -2px;
             padding-top: 82px;
         }
         .white-section::before {
@@ -313,9 +313,51 @@
 </footer>
 
 <script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyqAHizT4rLqJtcOJwg3ZdNEMwPnC_fsByus4TBBTpoWRircvtlBeX3UjmgY8SrJl5f/exec';
+
     function toggleM() { document.getElementById('sec_m').style.display = (document.getElementById('pres_m').value === 'oui') ? 'block' : 'none'; }
     function toggleH() { document.getElementById('sec_h').style.display = (document.getElementById('pres_h').value === 'oui') ? 'block' : 'none'; }
 
+    const form = document.getElementById('rsvpForm');
+    const btn = document.getElementById('subBtn');
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.innerText = "Envoi...";
+
+        const formData = new FormData(form);
+        const params = new URLSearchParams();
+
+        // SECURITE : Force 0 si l'invité a répondu "NON"
+        const presM = formData.get("pres_m");
+        const presH = formData.get("pres_h");
+        const adultesM = (presM === "non") ? "0" : (formData.get("ad_m") || "0");
+        const adultesH = (presH === "non") ? "0" : (formData.get("ad_h") || "0");
+
+        params.append("Nom & Prénom", formData.get("nom"));
+        params.append("Présence Mairie", presM);
+        params.append("Adultes Mairie", adultesM);
+        params.append("Présence Houppa", presH);
+        params.append("Adultes Houppa", adultesH);
+        params.append("Message", formData.get("msg"));
+
+        fetch(scriptURL, { method: 'POST', body: params })
+            .then(res => {
+                btn.innerText = "Envoyé ! ✨";
+                btn.style.background = "#8eb695";
+                alert("Merci ! Votre réponse a été enregistrée.");
+                form.reset();
+                toggleM(); toggleH();
+            })
+            .catch(error => {
+                btn.disabled = false;
+                btn.innerText = "Réessayer";
+                console.error('Erreur:', error);
+            });
+    });
+
+    // --- MUSIQUE ---
     const audio = document.getElementById('mazalMusic');
     const musicBtn = document.getElementById('musicToggle');
     let hasPlayed = false;
@@ -333,6 +375,7 @@
         else { audio.pause(); musicBtn.innerText = "🎶"; }
     });
 
+    // --- PÉTALES ---
     function createPetal() {
         const petal = document.createElement('div');
         petal.classList.add('petal');
@@ -348,13 +391,6 @@
         setTimeout(() => petal.remove(), 10000);
     }
     setInterval(createPetal, 700);
-
-    document.getElementById('rsvpForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const b = document.getElementById('subBtn');
-        b.innerText = "Envoi...";
-        setTimeout(() => { b.innerText = "Envoyé ! ✨"; b.style.background = "#8eb695"; alert("Merci ! Votre réponse est enregistrée."); }, 1200);
-    });
 </script>
 </body>
 </html>
